@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>طلب خدمة تنظيف - كلين ماستر</title>
-  <meta name="description" content="احجز خدمة تنظيف احترافية من شركة كلين ماستر في ثوانٍ عبر واتساب – شقق، سجاد، ستائر والمزيد بأسعار مميزة!">
+  <meta name="description" content="احجز خدمة تنظيف احترافية من شركة كلين ماستر في ثوانٍ عبر واتساب – شقق، سجاد، ستائر والمزيد بأسعار مميزة!" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -24,7 +24,7 @@
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.95);
+      background: #e0f7fa;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     select, input, button, textarea {
@@ -70,7 +70,7 @@
 </head>
 <body>
   <div class="container">
-    <img src="https://i.imgur.com/ZKn7xDn.png" alt="شعار الشركة" class="logo">
+    <img src="https://i.imgur.com/ZKn7xDn.png" alt="شعار الشركة" class="logo" />
     <h2>طلب خدمة تنظيف - شركة كلين ماستر</h2>
 
     <div id="servicesContainer">
@@ -92,7 +92,7 @@
           <option value="75">تنظيف كرسي سفرة (75ج)</option>
           <option value="0">دهان وش نضافة (السعر بعد المعاينة)</option>
         </select>
-        <input type="number" class="area" placeholder="المساحة أو العدد" oninput="calculatePrice()" required>
+        <input type="number" class="area" placeholder="المساحة أو العدد" oninput="calculatePrice()" required />
         <button onclick="removeService(this)">❌ حذف</button>
       </div>
     </div>
@@ -100,19 +100,21 @@
     <button onclick="addService()">إضافة خدمة أخرى</button>
     <p>السعر الإجمالي: <span id="totalPrice">0</span> جنيه</p>
 
-    <input type="text" id="name" placeholder="الاسم" required>
-    <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-    <input type="text" id="address" placeholder="العنوان بالتفصيل" required>
-    <input type="date" id="date" required>
+    <input type="text" id="name" placeholder="الاسم" required />
+    <input type="tel" id="phone" placeholder="رقم الهاتف" required />
+    <input type="text" id="address" placeholder="العنوان بالتفصيل" required />
+    <input type="date" id="date" required />
     <textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
     <button id="locationBtn" onclick="getLocation()">📍 مشاركة الموقع</button>
-    <input type="text" id="location" placeholder="موقعك" readonly>
+    <input type="text" id="location" placeholder="موقعك" readonly />
 
     <div class="payment-box">
       برجاء دفع ربع اجمالى مبلغ الحجز مقدما لتأكيد الحجز<br>
-      فودافون كاش أو انستا باي على رقم: <strong>01013373634</strong>
+      <strong>لن يتم تأكيد الحجز إلا بعد رفع صورة إثبات الدفع</strong><br>
+      فودافون كاش أو انستا باي على رقم: <strong>01013373634</strong><br>
+      💰 ربع المبلغ المستحق: <span id="quarterPrice">0</span> جنيه
     </div>
-    <input type="file" id="paymentProof" accept="image/*">
+    <input type="file" id="paymentProof" accept="image/*" required>
 
     <button onclick="confirmAndSend()">تأكيد الحجز</button>
   </div>
@@ -224,6 +226,16 @@ ${services.join("\\n")}`;
       let waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(waUrl, "_blank");
     }
+
+    function updateQuarterPrice() {
+      const total = parseFloat(document.getElementById("totalPrice").innerText) || 0;
+      const quarter = Math.ceil(total * 0.25);
+      document.getElementById("quarterPrice").innerText = quarter;
+    }
+
+    const observer = new MutationObserver(updateQuarterPrice);
+    observer.observe(document.getElementById("totalPrice"), { childList: true });
+    updateQuarterPrice();
   </script>
 </body>
 </html>
