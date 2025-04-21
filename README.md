@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8" />
@@ -185,12 +184,14 @@
     }
 
     async function confirmAndSend() {
+      const proofInput = document.getElementById("paymentProof");
+      if (proofInput.files.length === 0) {
+        alert("يرجى رفع صورة إثبات الدفع أولاً لتأكيد الحجز.");
+        return;
+      }
+
       if (confirm("هل أنت متأكد من إرسال الطلب؟")) {
-        const proofInput = document.getElementById("paymentProof");
-        let proofUrl = "لم يتم رفع صورة";
-        if (proofInput.files.length > 0) {
-          proofUrl = await uploadImageToImgbb(proofInput.files[0]);
-        }
+        const proofUrl = await uploadImageToImgbb(proofInput.files[0]);
         sendWhatsApp(proofUrl);
       }
     }
