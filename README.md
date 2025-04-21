@@ -102,7 +102,7 @@
     <input type="text" id="name" placeholder="الاسم" required />
     <input type="tel" id="phone" placeholder="رقم الهاتف" required />
     <input type="text" id="address" placeholder="العنوان بالتفصيل" required />
-    <input type="date" id="date" required />
+    <input type="date" id="date" placeholder="حدد تاريخ الحجز" required />
     <textarea id="notes" placeholder="ملاحظات إضافية"></textarea>
     <button id="locationBtn" onclick="getLocation()">📍 مشاركة الموقع</button>
     <input type="text" id="location" placeholder="موقعك" readonly />
